@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  fruits.api:
+    image: ${DOCKER_REGISTRY-}fruitsapi
+    build:
+      context: .
+      dockerfile: src/Fruits.API/Dockerfile

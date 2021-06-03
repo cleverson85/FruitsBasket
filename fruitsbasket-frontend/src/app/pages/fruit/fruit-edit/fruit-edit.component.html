@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="cad">
+    <h1>{{ titulo }}</h1>
+    <div>
+      <button type="button" class="btn btn-danger" routerLink="/livro">
+        Cancelar
+      </button>
+      <button type="sumit" class="btn btn-primary" (click)="save()">
+        Salvar
+      </button>
+    </div>
+  </div>
+  <form [formGroup]="formGroup" class="needs-validation" novalidate enctype="multipart/form-data">
+    <div class="card" style="width: 50%;">
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <label for="name">Nome *</label>
+            <input
+              id="name"
+              class="form-control"
+              type="text"
+              placeholder="Nome"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': submitted && hasError('name') }">
+              <div class="invalid-feedback" *ngIf="hasError('name') && hasError('name')['required']">
+                Informe o nome.
+              </div>
+          </div>
+          <div class="form-group col-md-3 d-flex justify-content-center align-items-center">
+            <label class="avatar">*
+              <img 
+                alt=""
+                style="width: 150px;"
+                [src]="url || '../../../../assets/images/imagem-capa.png'">
+              <input type='file' (change)="onSelectFile($event)" [ngClass]="{ 'is-invalid': submitted && hasError('picture') }" accept="image/jpeg">
+              <div class="invalid-feedback" *ngIf="hasError('picture') && hasError('picture')['required']">
+                Informe a capa do livro.
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <label for="autor">Autor *</label>
+            <input
+              id="autor"
+              class="form-control"
+              type="text"
+              placeholder="Autor"
+              formControlName="autor"
+              [ngClass]="{ 'is-invalid': submitted && hasError('autor') }">
+              <div class="invalid-feedback" *ngIf="hasError('autor') && hasError('autor')['required']">
+                Informe o autor do livro.
+              </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="sinopse">Sinopse</label>
+            <textarea 
+              id="sinopse"
+              class="form-control"
+              type="text"
+              placeholder="Sinopse"
+              formControlName="sinopse"
+              rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

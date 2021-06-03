@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="search">
+    <div class="cad">
+      <h1>Frutas</h1>
+    </div>
+    <form class="d-flex justify-content-center">
+      <div class="input-group w-75">
+        <input type="text" class="form-control" placeholder="Consultar por Autor ou Título" aria-describedby="button-addon4" #valueToSearch>
+        <div class="input-group-append" id="button-addon4">
+          <button class="btn btn-success" role="button" type="submit" (click)="find()">Consultar</button>
+          <button class="btn btn-primary" role="button" routerLink="/fruit/0">Cadastrar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="fruits?.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Titulo</th>
+          <th>Autor</th>
+          <th>Capa</th>
+          <th>Gênero</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let item of fruits'>
+          <td>
+            <span>{{ item.id }}</span>
+          </td>
+          <td>
+            <span>{{ item.name }}</span>
+          </td>
+          <!-- <td>
+            <span>{{ item.autor }}</span>
+          </td>
+          <td>
+            <span>
+              <ngx-avatar [src]="'data:image/jpeg;base64,' + item.imagemCapa" size="30" value="28%" [round]="true" [name]="item.titulo"></ngx-avatar>
+            </span>
+          </td>
+          <td>
+            <span>{{ item.genero?.nome }}</span>
+          </td>
+          <td class="status">
+            <span [class]="item.disponivel ? 'disponivel' : 'indisponivel'">
+              {{ item.disponivel ? 'Disponivel' : 'Indisponível' }}
+            </span>
+          </td> -->
+          <td>
+            <app-menu-list [route]="'livro/' + item.id" [delete]="item" [routeApi]="routeApi" (modelEmitter)="reloadList($event)" ></app-menu-list>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footer">
+      <app-pagination [items]="pages" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+  </div>
+</div>

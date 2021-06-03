@@ -1,0 +1,14 @@
+version: "3.6"
+
+services:
+  web:
+    build:
+      context: .
+    container_name: fruitsbasket-frontend
+    environment:
+      APP_NAME: "Fruits Basket"
+      PRODUCTION: "true"
+      API_URL: "http://localhost:8080/api/"
+      QTD_ITEM: "10"
+    ports:
+      - 5050:80
