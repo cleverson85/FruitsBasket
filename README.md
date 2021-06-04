@@ -14,7 +14,7 @@
 ##
 
 ## Sobre Aplicação
-  Utilizado docker para subir o banco de dados é criando automaticamente o usuário ao usar o comando docker-compose up
+  Utilizado docker para subir o banco de dados é criar automaticamente o usuário ao usar o comando docker-compose up -d --build
 ##
 
 ### Tecnologias usada no projeto:
@@ -23,6 +23,7 @@
     - Fluent api
     - Swagger UI
     - Injeção de dependência nativa .net core
+    - Postgres
 ##
 
 ### Arquitetura:
