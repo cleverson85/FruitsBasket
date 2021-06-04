@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fruits.API", "src\Fruits.AP
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0377278C-B017-4680-B234-30DE7367BC16}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5966AEE9-6F2C-4567-9F0E-F03CCA132484}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data-base", "data-base", "{93511AC0-6AC6-4AD4-AC78-08752DD38718}"
+	ProjectSection(SolutionItems) = preProject
+		data-base\docker-compose.yml = data-base\docker-compose.yml
+		data-base\V1__script.sql = data-base\V1__script.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +49,6 @@ Global
 		{B0ACEB5F-5F8C-4AD6-89D0-8CB39E5BB8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0ACEB5F-5F8C-4AD6-89D0-8CB39E5BB8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0ACEB5F-5F8C-4AD6-89D0-8CB39E5BB8A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5966AEE9-6F2C-4567-9F0E-F03CCA132484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5966AEE9-6F2C-4567-9F0E-F03CCA132484}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5966AEE9-6F2C-4567-9F0E-F03CCA132484}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5966AEE9-6F2C-4567-9F0E-F03CCA132484}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

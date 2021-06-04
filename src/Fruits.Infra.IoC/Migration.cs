@@ -4,6 +4,7 @@ using Fruits.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Fruits.Infra.IoC
@@ -18,7 +19,7 @@ namespace Fruits.Infra.IoC
                 var context = services.GetService<TContext>();
                 context.Database.Migrate();
 #if DEBUG
-               // InserirDadosParaTeste(context as Context);
+               InserirDadosParaTeste(context as Context);
 #endif
             }
 
@@ -26,13 +27,8 @@ namespace Fruits.Infra.IoC
         }
         private static void InserirDadosParaTeste(Context context)
         {
-            var user = context.Set<User>().FromSqlRaw("SELECT TOP 1 * FROM USER").ToListAsync();
-
-            if (user == null)
-            {
-                context.Add(BuildUser());
-                context.SaveChanges();
-            }
+            context.Add(BuildUser());
+            context.SaveChanges();
         }
 
         private static User BuildUser()

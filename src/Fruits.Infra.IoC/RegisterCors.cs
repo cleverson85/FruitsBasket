@@ -8,7 +8,7 @@ namespace Fruits.Infra.IoC
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
-                    builder.WithOrigins("http://localhost:4200", "http://localhost:8080", "http://localhost:80")
+                    builder.WithOrigins("http://localhost:4200", "http://localhost:5050", "http://localhost:80", "http://localhost:8080")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                 );
