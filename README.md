@@ -1,6 +1,6 @@
 ## 1°
 
-## Requisitos BACK-END (FruitsBasket)
+## Requisitos BACK-END (FruitsBasket/src)
 ## Requisitos
     Docker
  ##
