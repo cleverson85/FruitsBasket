@@ -27,14 +27,19 @@ namespace Fruits.Infra.IoC
         }
         private static void InserirDadosParaTeste(Context context)
         {
-            context.Add(BuildUser());
-            context.SaveChanges();
+            var user = context.Find<User>(1);
+            if (user == null)
+            {
+                context.Add(BuildUser());
+                context.SaveChanges();
+            }
         }
 
         private static User BuildUser()
         {
             var fixture = new Fixture();
             var user = fixture.Build<User>()
+                .With(c => c.Id, 1)
                 .With(c => c.Email, "usuario@admin.com.br")
                 .With(c => c.Senha, BC.HashPassword("123456"))
                 .Create();
