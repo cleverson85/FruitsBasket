@@ -8,5 +8,6 @@ namespace Fruits.Domain.Interfaces.Services
     public interface IFruitService : IBaseService<Fruit>
     {
         Task<IList<Fruit>> FindByName(string name, PaginationParameterDto paginationParameter);
+        Task<bool> ValidateQuatity(IList<Store> stores);
     }
 }

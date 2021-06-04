@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Fruits.Infra.Data.Configurations
 {
-    class FruitConfiguration : BaseConfiguration<Fruit>
+    class FruitConfiguration : IEntityTypeConfiguration<Fruit>
     {
-        public override void Begin(EntityTypeBuilder<Fruit> builder)
+        public void Configure(EntityTypeBuilder<Fruit> builder)
         {
+            builder.HasKey(c => c.Id);
             builder.Property(c => c.Name)
                .IsRequired()
                .HasMaxLength(250);
@@ -15,10 +16,10 @@ namespace Fruits.Infra.Data.Configurations
                 .HasMaxLength(500);
             builder.Property(c => c.AvailableQuantity)
                 .IsRequired()
-                .HasDefaultValueSql("integer");
+                .HasPrecision(5);
             builder.Property(c => c.Price)
                 .IsRequired()
-                .HasDefaultValueSql("decimal");
+                .HasPrecision(10, 2);
             builder.Property(c => c.Picture)
                 .IsRequired();
         }

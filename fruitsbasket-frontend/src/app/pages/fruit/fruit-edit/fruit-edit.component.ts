@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ToasterService } from 'src/app/providers/common/toaster.service';
 import { FruitService } from 'src/app/providers/fruit.service';
 import { Fruit } from '../../../models/fruit';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 @Component({
   selector: 'app-fruit-edit',
@@ -19,13 +20,30 @@ export class FruitEditComponent implements OnInit, OnDestroy {
   submitted = false;
   url: any;
   file: File;
+  numberMask: any;
+  moneyMask: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private fruitService: FruitService,
     private toaster: ToasterService
-  ) { }
+  ) {
+    this.numberMask = createNumberMask({
+      prefix: '',
+      allowDecimal: false,
+      includeThousandsSeparator: false,
+      integerLimit: 4
+    });
+
+    this.moneyMask = createNumberMask({
+      prefix: '',
+      requireDecimal: true,
+      allowDecimal: true,
+      integerLimit: 8,
+      decimalLimit: 2,
+    });
+  }
 
   ngOnInit() {
     this.fruit = this.activatedRoute.snapshot.data['fruit'];
@@ -33,9 +51,9 @@ export class FruitEditComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       id: [this.fruit?.id || 0],
       name: [this.fruit?.name, Validators.required],
-      description: [this.fruit?.description],
       price: [this.fruit?.price, Validators.required],
-      availableQuantity: [this.fruit?.availableQuantity],
+      availableQuantity: [this.fruit?.availableQuantity, Validators.required],
+      description: [this.fruit?.description],
     });
 
     this.configurarImagem();

@@ -8,6 +8,7 @@ namespace Fruits.Infra.IoC
     {
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services) =>
             services.AddScoped<IFruitRepository, FruitRepository>()
-                    .AddScoped<IUserRepository, UserRepository>();
+                    .AddScoped<IUserRepository, UserRepository>()
+                    .AddScoped<IStoreRepository, StoreRepository>();
     }
 }

@@ -22,7 +22,7 @@ namespace Fruits.Infra.Data.Services
             string hashPassWord = BC.HashPassword(user.Senha);
             user.Senha = hashPassWord;
 
-            return await _userRepository.Save(user);
+            return await Save(user);
         }
 
         public async Task<User> Authenticate(UserDto user)

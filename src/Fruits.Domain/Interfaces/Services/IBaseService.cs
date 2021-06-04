@@ -11,7 +11,7 @@ namespace Fruits.Domain.Interfaces.Services
     public interface IBaseService<Entity> where Entity : BaseEntity
     {
         Task<Entity> Save(Entity entity);
-        Task Save(IList<Entity> entities);
+        Task<bool> Save(IList<Entity> entities);
         Task Delete(int id);
         Task<IList<Entity>> GetAll(PaginationParameterDto paginationParameter = null);
         Task<Entity> GetById(int id);

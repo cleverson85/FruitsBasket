@@ -23,6 +23,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/usuario/usuario.module').then(m => m.UsuarioModule),
     canActivate: [ AuthGuard ],
   },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule),
+    canActivate: [ AuthGuard ],
+  },
 ];
 
 @NgModule({

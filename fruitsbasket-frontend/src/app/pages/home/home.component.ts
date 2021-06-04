@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PaginationComponent } from 'src/app/components/pagination/pagination.component';
+import { Fruit } from 'src/app/models/fruit';
 import { AuthService } from 'src/app/providers/auth.service';
+import { CartService } from 'src/app/providers/cart.service';
 import { ToasterService } from 'src/app/providers/common/toaster.service';
+import { FruitService } from 'src/app/providers/fruit.service';
 
 @Component({
   selector: 'app-home',
@@ -10,43 +12,47 @@ import { ToasterService } from 'src/app/providers/common/toaster.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  @ViewChild(PaginationComponent) childPagination: PaginationComponent;
+  @ViewChild('valueToSearch') valueToSearch: ElementRef;
 
   subscription = new Subscription();
-  placeholder = 'Country';
-  
-  countries: any;
+  fruits: Fruit[];
+  pages: number;
 
   constructor(
-    private toasterService: ToasterService,
-    private authService: AuthService,
-    private toaster: ToasterService
+    private cartService: CartService,
+    private fruitService: FruitService,
   ) { }
 
   ngOnInit() {
-    
+    this.subscription.add(
+      this.fruitService.getFruits(1).subscribe((result: any) => {
+        this.configureItens(result);
+      }
+    ));
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
- 
+  find(page?: number) {
+    this.subscription.add(
+      this.fruitService.getFruitByName(this.valueToSearch.nativeElement.value, page)
+        .subscribe((result: any) => {
+          this.configureItens(result);
+        })
+    );
+  }
 
-  isLastPage(): boolean {
-    const currentPage = this.childPagination?.config.currentPage;
-    const totalPages = this.childPagination?.totalPages;
-    return currentPage == totalPages;
+  configureItens(result: any) {
+    if (result) {
+      const { count, items } = result;
+      this.fruits = items;
+      this.pages = count;
+    }
   }
 
   onPageChange(page: any) {
-    
-  }
-
-  find(valueToSearch: string) {
-    if (valueToSearch === '') {
-      this.toaster.showToastWarning('Nenhum valor para pesquisa foi informado.');
-      return;
-    }
+    this.find(page);
   }
 }

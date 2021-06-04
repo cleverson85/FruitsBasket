@@ -20,9 +20,12 @@ export class ModalService {
     return dialogRef.afterClosed();
   }
 
-  showModal(data: any): Observable<any> {
+  showModal(title: string, message: string): Observable<any> {
     const dialogRef = this.dialog.open(ModalComponent);
     const componentInstance = dialogRef.componentInstance;
+
+    componentInstance.title = title;
+    componentInstance.message = message;
 
     return dialogRef.afterClosed();
   }

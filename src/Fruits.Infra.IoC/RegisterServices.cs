@@ -9,6 +9,7 @@ namespace Fruits.Infra.IoC
         public static IServiceCollection ConfigureServices(this IServiceCollection services) =>
             services.AddTransient<IFruitService, FruitService>()
                     .AddTransient<IUserService, UserService>()
+                    .AddTransient<IStoreService, StoreService>()
                     .AddTransient<IAuthJwtService, AuthJwtService>();
     }
 }

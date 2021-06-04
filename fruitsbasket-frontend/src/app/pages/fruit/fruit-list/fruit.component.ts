@@ -20,9 +20,7 @@ export class FruitComponent implements OnInit, OnDestroy {
   routeApi = ApiRoute.DELETE;
 
   constructor(
-    private toasterService: ToasterService,
     private fruitService: FruitService,
-    private modalService: ModalService,
   ) { }
 
   ngOnInit() {
@@ -41,11 +39,6 @@ export class FruitComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.fruitService.getFruitByName(this.valueToSearch.nativeElement.value, page)
         .subscribe((result: any) => {
-          if (result?.items.length === 0) {
-            this.toasterService.showToastWarning('Nenhum item foi encontrado.');
-            return;
-          }
-
           this.configureItens(result);
         })
     );

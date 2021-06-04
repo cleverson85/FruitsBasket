@@ -8,7 +8,7 @@ using static Fruits.Domain.Util.Endpoints;
 namespace Fruits.API.Controllers
 {
     [ApiController]
-    [Route("api/auth/[action]")]
+    [Route(Recursos.Authentication)]
     public class AuthController : ControllerBase
     {
         private readonly IAuthJwtService _authService;
@@ -21,7 +21,7 @@ namespace Fruits.API.Controllers
         }
 
         [HttpPost]
-        [Route(Route.POST)]
+        [Route(Route.LOGIN)]
         public async Task<IActionResult> Login([FromBody] UserDto user)
         {
             var userAuthenticated = await _userService.Authenticate(user);

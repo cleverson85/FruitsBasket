@@ -121,9 +121,10 @@ namespace Fruits.Infra.Data.Repositories
             return entity;
         }
 
-        public async Task SaveList(IList<Entity> entities)
+        public async Task<bool> SaveList(IList<Entity> entities)
         {
             await _dbSet.AddRangeAsync(entities);
+            return true;
         }
 
         public virtual async Task<Entity> Update(Entity entity)

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Fruits.Infra.Data.Configurations
 {
-    class UserConfiguration : BaseConfiguration<User>
+    class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public override void Begin(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Property(c => c.Email);
             builder.Property(c => c.Senha);

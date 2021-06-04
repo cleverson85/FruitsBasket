@@ -7,6 +7,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { PaginationModule } from 'src/app/components/pagination/pagination.module';
 import { MenuListModule } from 'src/app/components/menu-list/menu-list.module';
 import { AvatarModule } from 'ngx-avatar';
+import { CardModule } from 'src/app/components/card/card.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AvatarModule } from 'ngx-avatar';
     HomeRoutingModule,
     PaginationModule,
     MenuListModule,
-    AvatarModule
+    AvatarModule,
+    CardModule
   ]
 })
 export class HomeModule { }

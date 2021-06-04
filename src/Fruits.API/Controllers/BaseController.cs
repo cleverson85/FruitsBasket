@@ -3,6 +3,7 @@ using Fruits.Domain.Interfaces.Services;
 using Fruits.Domain.Models;
 using Fruits.Domain.Searching;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static Fruits.Domain.Util.Endpoints;
 
@@ -41,6 +42,15 @@ namespace Fruits.API.Controllers
         [HttpPost]
         [Route(Route.POST)]
         public virtual async Task<IActionResult> Save([FromBody] Entity entity)
+        {
+            await _baseService.Save(entity);
+            await _unitOfWork.Commit();
+            return Ok(await GetAll(new PaginationParameterDto()));
+        }
+
+        [HttpPost]
+        [Route(Route.LIST)]
+        public virtual async Task<IActionResult> Save([FromBody] IList<Entity> entity)
         {
             await _baseService.Save(entity);
             await _unitOfWork.Commit();

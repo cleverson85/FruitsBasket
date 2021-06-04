@@ -254,21 +254,20 @@ body::-webkit-scrollbar-thumb {
 .conteudo::-webkit-scrollbar-thumb {
   background-color: #003d68;
 }
-.card-country-imagem img{
-  min-height: 250px;
+.card-component-imagem img{
+  width: 500px;
   max-height: 250px;
   background-size: 100% 100% !important;
 }
-.card-country-data {
+.card-component-data {
   margin-bottom: 5px;
   padding-top: 5px;
 }
-.card-country-texto {
+.card-component-texto {
   padding-top: 10px;
 }
-.card-country {
-
-  min-height: 550px;
+.card-component {
+  min-height: 495px;
 }
 .card-galeria-imagem-wrapper {
   min-width: 422px;

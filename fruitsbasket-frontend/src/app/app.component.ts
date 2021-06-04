@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from './providers/auth.service';
-import { FruitService } from './providers/fruit.service';
 
 @Component({
   selector: 'app-root',

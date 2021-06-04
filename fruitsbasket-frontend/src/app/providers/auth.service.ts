@@ -36,7 +36,6 @@ export class AuthService {
   };
 
   login(user: User) {
-    debugger;
     this.httpClient.post(`${this.API}${ApiRoute.LOGIN}`, user).subscribe(
       (result: any) => {
         this.configureSession(result);

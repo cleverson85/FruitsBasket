@@ -1,8 +1,22 @@
 version: '3.4'
 
 services:
-  fruits.api:
+  api:
     image: ${DOCKER_REGISTRY-}fruitsapi
     build:
       context: .
       dockerfile: src/Fruits.API/Dockerfile
+
+  web:
+    build:
+      context: fruitsbasket-frontend/Dockerfile
+    container_name: fruitsbasket-frontend
+    environment:
+      APP_NAME: "Fruits Basket"
+      PRODUCTION: "true"
+      API_URL: "http://localhost:8080/api/"
+      QTD_ITEM: "10"
+    ports:
+      - 5050:80
+    depends_on: 
+      - api

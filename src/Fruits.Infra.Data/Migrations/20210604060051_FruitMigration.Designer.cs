@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Fruits.Infra.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210602201137_FruitsMigration")]
-    partial class FruitsMigration
+    [Migration("20210604060051_FruitMigration")]
+    partial class FruitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,23 +29,53 @@ namespace Fruits.Infra.Data.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("AvailableQuantity")
+                        .HasPrecision(5)
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
 
                     b.Property<byte[]>("Picture")
+                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Fruit");
+                });
+
+            modelBuilder.Entity("Fruits.Domain.Models.Store", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("FruitId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalValue")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("numeric(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FruitId");
+
+                    b.ToTable("Store");
                 });
 
             modelBuilder.Entity("Fruits.Domain.Models.User", b =>
@@ -64,6 +94,17 @@ namespace Fruits.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Fruits.Domain.Models.Store", b =>
+                {
+                    b.HasOne("Fruits.Domain.Models.Fruit", "Fruit")
+                        .WithMany()
+                        .HasForeignKey("FruitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Fruit");
                 });
 #pragma warning restore 612, 618
         }

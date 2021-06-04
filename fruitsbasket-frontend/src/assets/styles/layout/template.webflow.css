@@ -590,7 +590,7 @@
   text-align: left;
 }
 
-.card-country-ver {
+.card-component-ver {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -604,7 +604,7 @@
   justify-content: flex-end;
 }
 
-.card-country-imagem {
+.card-component-imagem {
   position: relative;
   margin-bottom: 0px;
   border-top-left-radius: 20px;
@@ -643,12 +643,12 @@
   margin-bottom: 60px;
 }
 
-.card-country {
+.card-component {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 360px;
+  width: 300px;
   height: auto;
   min-height: 600px;
   margin-right: 20px;
@@ -680,7 +680,7 @@
   box-shadow: inset 0 -5px 8px -7px rgba(0, 0, 0, 0.15);
 }
 
-.card-country-data {
+.card-component-data {
   position: relative;
   width: 100%;
   margin-bottom: 5px;
@@ -704,7 +704,7 @@
   object-fit: cover;
 }
 
-.countries-cards {
+.container-cards {
   display: -ms-grid;
   display: grid;
   margin-bottom: 100px;
@@ -760,7 +760,7 @@
   background-color: #fcbb51;
 }
 
-.card-country-texto {
+.card-component-texto {
   position: relative;
   width: 100%;
   margin-bottom: 0px;
@@ -788,7 +788,7 @@
   color: #d4efff;
 }
 
-.card-country-titulo {
+.card-component-titulo {
   position: relative;
   width: 100%;
   min-height: 50px;
@@ -869,7 +869,7 @@
   padding-left: 10px;
 }
 
-.card-evento-titulo.card-country-titulo {
+.card-evento-titulo.card-component-titulo {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -906,7 +906,7 @@
   height: 420px;
 }
 
-.card-evento.card-country {
+.card-evento.card-component {
   width: 320px;
   height: auto;
   min-height: 530px;
@@ -934,7 +934,7 @@
   align-content: flex-start;
 }
 
-.eventos-cards.countries-cards {
+.eventos-cards.container-cards {
   display: -ms-grid;
   display: grid;
   height: auto;
@@ -2608,13 +2608,13 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .countries-cards{
+  .container-cards{
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media screen and (max-width: 750px) {
-  .countries-cards{
+  .container-cards{
     grid-template-columns: 1fr;
   }
 }
@@ -2909,13 +2909,13 @@
     -ms-flex-pack: start;
     justify-content: flex-start;
   }
-  .card-country {
+  .card-component {
     width: 100%;
     max-width: 320px;
     margin-right: 0px;
     margin-bottom: 30px;
   }
-  .countries-cards {
+  .container-cards {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2984,7 +2984,7 @@
     -ms-flex-pack: start;
     justify-content: flex-start;
   }
-  .eventos-cards.countries-cards {
+  .eventos-cards.container-cards {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

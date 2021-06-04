@@ -19,14 +19,14 @@ namespace Fruits.Infra.Data.Services
             _repository = repository;
         }
 
-        public async Task<Entity> Save(Entity entity)
+        public virtual async Task<Entity> Save(Entity entity)
         {
            return await _repository.Save(entity);
         }
 
-        public async Task Save(IList<Entity> entities)
+        public virtual async Task<bool> Save(IList<Entity> entities)
         {
-            await _repository.SaveList(entities);
+            return await _repository.SaveList(entities);
         }
 
         public async Task Delete(int id)

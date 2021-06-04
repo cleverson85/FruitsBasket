@@ -1,3 +1,4 @@
+import { CartService } from 'src/app/providers/cart.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,7 +16,8 @@ class BaseService {
 
   constructor(protected httpClient: HttpClient,
               protected toasterService: ToasterService,
-              protected router: Router) { }
+              protected router: Router,
+              protected cartService: CartService) { }
 
   getUrl<T>(url: string): Observable<T> {
     return this.httpClient.get<T>(url);

@@ -2,6 +2,7 @@
 using Fruits.Domain.Interfaces.Services;
 using Fruits.Domain.Models;
 using Fruits.Domain.Searching;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,7 +19,24 @@ namespace Fruits.Infra.Data.Services
 
         public async Task<IList<Fruit>> FindByName(string name, PaginationParameterDto paginationParameter)
         {
-            return await _fruitRepository.FindByName(name, paginationParameter);
+            return await _fruitRepository.FindByName(Uri.UnescapeDataString(name), paginationParameter);
+        }
+
+        public async Task<bool> ValidateQuatity(IList<Store> stores)
+        {
+            foreach (var item in stores)
+            {
+                var result = await _fruitRepository.GetById(item.FruitId);
+                if (item.Quantity > result.AvailableQuantity)
+                {
+                    new Exception($"Quantidade informada do item {item.FruitId} não pode ser maior que a quantidade disponível.");
+                }
+
+                result.AvailableQuantity -= item.Quantity;
+                await _fruitRepository.Save(result);
+            }
+
+            return true;
         }
     }
 }

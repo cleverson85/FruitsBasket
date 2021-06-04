@@ -4,12 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MenuComponent } from './menu.component';
+import { CartComponent } from '../cart/cart.component';
+import { CartModule } from '../cart/cart.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    CartModule
   ],
   declarations: [
     MenuComponent,

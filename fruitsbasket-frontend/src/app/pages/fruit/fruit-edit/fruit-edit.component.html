@@ -2,7 +2,7 @@
   <div class="cad">
     <h1>{{ titulo }}</h1>
     <div>
-      <button type="button" class="btn btn-danger" routerLink="/livro">
+      <button type="button" class="btn btn-danger" routerLink="/fruit">
         Cancelar
       </button>
       <button type="sumit" class="btn btn-primary" (click)="save()">
@@ -22,6 +22,7 @@
               type="text"
               placeholder="Nome"
               formControlName="name"
+              maxlength="25"
               [ngClass]="{ 'is-invalid': submitted && hasError('name') }">
               <div class="invalid-feedback" *ngIf="hasError('name') && hasError('name')['required']">
                 Informe o nome.
@@ -35,37 +36,54 @@
                 [src]="url || '../../../../assets/images/imagem-capa.png'">
               <input type='file' (change)="onSelectFile($event)" [ngClass]="{ 'is-invalid': submitted && hasError('picture') }" accept="image/jpeg">
               <div class="invalid-feedback" *ngIf="hasError('picture') && hasError('picture')['required']">
-                Informe a capa do livro.
+                Informe a imagem.
               </div>
             </label>
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-9">
-            <label for="autor">Autor *</label>
+          <div class="form-group col-md-6">
+            <label for="availableQuantity">Quantidade Disponível *</label>
             <input
-              id="autor"
+              id="availableQuantity"
               class="form-control"
               type="text"
-              placeholder="Autor"
-              formControlName="autor"
-              [ngClass]="{ 'is-invalid': submitted && hasError('autor') }">
-              <div class="invalid-feedback" *ngIf="hasError('autor') && hasError('autor')['required']">
-                Informe o autor do livro.
+              placeholder="Quantidade Disponível"
+              formControlName="availableQuantity"
+              [textMask]="{mask: numberMask}" 
+              [ngClass]="{ 'is-invalid': submitted && hasError('availableQuantity') }">
+              <div class="invalid-feedback" *ngIf="hasError('availableQuantity') && hasError('availableQuantity')['required']">
+                Informe a quantidade disponível.
+              </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="price">Valor *</label>
+            <input
+              id="price"
+              class="form-control"
+              type="text"
+              placeholder="R$ 1.99"
+              formControlName="price"
+              [textMask]="{mask: moneyMask}" 
+              [ngClass]="{ 'is-invalid': submitted && hasError('price') }">
+              <div class="invalid-feedback" *ngIf="hasError('price') && hasError('price')['required']">
+                Informe o valor.
               </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-12">
-            <label for="sinopse">Sinopse</label>
+            <label for="description">Descrição</label>
             <textarea 
-              id="sinopse"
+              id="description"
               class="form-control"
               type="text"
-              placeholder="Sinopse"
-              formControlName="sinopse"
+              placeholder="Descrição"
+              formControlName="description"
+              maxlength="500"
               rows="3"></textarea>
           </div>
         </div>

@@ -88,8 +88,13 @@ label {
 }
 
 /* Table */
+.container-table {
+  display: flex;
+  justify-content: center;
+}
+
 div table {
-  width: 100%;
+  width: 80%;
   border-collapse: separate;
   border-spacing: 0 15px;
 }
@@ -198,3 +203,5 @@ tbody :hover {
 .error {
   border: "solid 1px red";
 }
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

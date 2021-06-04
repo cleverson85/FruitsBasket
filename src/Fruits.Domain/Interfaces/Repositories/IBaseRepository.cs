@@ -11,7 +11,7 @@ namespace Fruits.Domain.Interfaces.Repositories
     public interface IBaseRepository<Entity> where Entity : BaseEntity
     {
         Task<Entity> Save(Entity entity);
-        Task SaveList(IList<Entity> entities);
+        Task<bool> SaveList(IList<Entity> entities);
         Task<Entity> Update(Entity entity);
         Task Delete(int id);
         Task<IList<Entity>> GetAll(PaginationParameterDto paginationParameter = null, params Expression<Func<Entity, object>>[] includes);

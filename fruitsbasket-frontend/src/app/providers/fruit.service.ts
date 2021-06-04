@@ -24,13 +24,13 @@ export class FruitService extends BaseService {
 
     if (name) {
       return this.get<Fruit[]>(
-        `${ApiRoute.NAME}?page=${page}&ItemsByPage=${this.itemsPerPage}`
+        `${ApiRoute.NAME}${encodeURIComponent(name)}?page=${page}&ItemsByPage=${this.itemsPerPage}`
       ).pipe(
         map((result: Fruit[]) => {
           return result;
         })
       );
-    } 
+    }
 
     return this.getFruits(page);
   }
@@ -39,7 +39,7 @@ export class FruitService extends BaseService {
     file
       .arrayBuffer()
       .then((e: any) => {
-        formGroup['ImagemCapa'] = btoa(new Uint8Array(e).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+        formGroup['picture'] = btoa(new Uint8Array(e).reduce((data, byte) => data + String.fromCharCode(byte), ''));
 
         this.httpClient
           .post(this.API + ApiRoute.SAVE, formGroup)
@@ -48,7 +48,7 @@ export class FruitService extends BaseService {
               this.toasterService.showToastSuccess(
                 'Operação efetuada com sucesso.'
               );
-              //this.router.navigate(['Fruit']);
+              this.router.navigate(['fruit']);
             },
             (err: HttpErrorResponse) => {
               const { error } = err;

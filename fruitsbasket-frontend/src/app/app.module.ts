@@ -14,6 +14,7 @@ import { ConfirmModalModule } from './components/confirm-modal/confirm-modal.mod
 import { MenuModule } from './components/menu/menu.module';
 import { Environment } from './environment.service';
 import { HttpRequestInterceptor } from './shared/httprequest.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function initializeApp(environmentConfig: Environment) {
   return (): Promise<AppConfig> => environmentConfig.load();
@@ -31,6 +32,7 @@ export function initializeApp(environmentConfig: Environment) {
     MenuModule,
     ConfirmModalModule,
     ToastrModule.forRoot(),
+    NgbModule,
   ],
   providers: [
     Environment,
