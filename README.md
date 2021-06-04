@@ -37,11 +37,11 @@
 ## Requisitos FRONT-END (fruitsbasket-frontend)
 ## Requisitos
     Angular CLI
- ##
+##
 
 ## Usar comando dentro da pasta fruitsbasket-frontend
-  npm install
-  npm start
+  - npm install
+  - npm start
 ##
 
 ## App
