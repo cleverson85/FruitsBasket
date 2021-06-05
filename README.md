@@ -3,6 +3,7 @@
 ## Requisitos BACK-END (FruitsBasket/src)
 ## Requisitos
     Docker
+    - Download: https://www.docker.com/products/docker-desktop
  ##
  
 ## Usar comando dentro da pasta data-base
@@ -39,11 +40,15 @@
 
 ## Requisitos FRONT-END (fruitsbasket-frontend)
 ## Requisitos
+    NPM
+    - Download: https://nodejs.org/en/
+    
     Angular CLI
+    - npm i -g @angular/cli@latest
 ##
 
 ## Usar comando dentro da pasta fruitsbasket-frontend
-  - npm install
+  - npm install --force
   - npm start
 ##
 
