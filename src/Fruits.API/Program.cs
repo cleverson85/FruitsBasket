@@ -9,7 +9,6 @@ namespace Fruits.API
     {
         public static void Main(string[] args) => CreateHostBuilder(args)
                 .Build()
-                .MigrateDbContext<Context>()
                 .Run();
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
