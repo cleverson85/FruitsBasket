@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+  fruits.api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      CONNECTION_STRING: "Host=postgres;Port=5432;Pooling=true;Database=fruits-basket;User Id=postgres;Password=docker;"
+    ports:
+      - "8080:80"
+      - "44380:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+      - backend
+    depends_on: 
+      - postgres
+
+  postgres:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: fruits-basket
+    restart: always
+    ports:
+        - 15433:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  web:
+    environment:
+      APP_NAME: "Fruits Basket"
+      PRODUCTION: "true"
+      API_URL: "http://localhost:8080/api/"
+      QTD_ITEM: "9"
+    ports:
+      - 5050:80
+    networks:
+      - backend
+    depends_on: 
+      - api
+      - postgres
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres-data:

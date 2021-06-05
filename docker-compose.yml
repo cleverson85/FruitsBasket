@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  fruits.api:
+    image: ${DOCKER_REGISTRY-}fruitsapi
+    container_name: fruitsbasket-api
+    build:
+      context: .
+      dockerfile: src/Fruits.API/Dockerfile
+
+  postgres:
+    image: postgres:11-alpine
+    container_name: fruitsbasket-db
+
+  web:
+    build:
+      context: .
+      dockerfile: fruitsbasket-frontend/Dockerfile
+    container_name: fruitsbasket-frontend
+    
