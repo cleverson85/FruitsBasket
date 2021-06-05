@@ -51,5 +51,9 @@
     https://http://localhost:4200/
 ##
 
-Usuário: usuario@admin.com.br
-Senha: 123456
+- Usuário: usuario@admin.com.br
+- Senha: 123456
+
+## Obs
+   - Projeto para fins educacionais.
+##
