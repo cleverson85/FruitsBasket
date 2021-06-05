@@ -9,6 +9,9 @@
     docker-compose up -d --build
 ##
 
+## Execução
+   - Abrir a solução e executar a aplicação
+
 ## Swagger
     https://localhost:5001/swagger/index.html
 ##
