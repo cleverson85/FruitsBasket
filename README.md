@@ -1,6 +1,6 @@
 ## 1°
 
-## Requisitos BACK-END (FruitsBasket)
+## Requisitos BACK-END (FruitsBasket/src)
 ## Requisitos
     Docker
  ##
@@ -14,7 +14,7 @@
 ##
 
 ## Sobre Aplicação
-  Utilizado docker para subir o banco de dados é criando automaticamente o usuário ao usar o comando docker-compose up
+  Utilizado docker para subir o banco de dados é criar automaticamente o usuário ao usar o comando docker-compose up -d --build
 ##
 
 ### Tecnologias usada no projeto:
@@ -23,6 +23,7 @@
     - Fluent api
     - Swagger UI
     - Injeção de dependência nativa .net core
+    - Postgres
 ##
 
 ### Arquitetura:
@@ -36,11 +37,11 @@
 ## Requisitos FRONT-END (fruitsbasket-frontend)
 ## Requisitos
     Angular CLI
- ##
+##
 
 ## Usar comando dentro da pasta fruitsbasket-frontend
-  npm install
-  npm start
+  - npm install
+  - npm start
 ##
 
 ## App
