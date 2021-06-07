@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'http://locahost:8080/api/'
+  API: '/'
 };
 
 /*
