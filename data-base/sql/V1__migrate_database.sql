@@ -23,5 +23,3 @@ CREATE TABLE IF NOT EXISTS public."Store" (
 	CONSTRAINT "PK_Store" PRIMARY KEY ("Id"),
 	CONSTRAINT "FK_Store_Fruit_FruitId" FOREIGN KEY ("FruitId") REFERENCES "Fruit"("Id") ON DELETE CASCADE
 );
-
-INSERT INTO "User" ("Id", "Email", "Senha") VALUES(112, 'usuario@admin.com.br', '$2b$10$zBZS4cKWRLuF7BeIePfI.5Aa4SCpFpsBJXROLmzRBk8iDw9TDbam') ON CONFLICT DO NOTHING;
