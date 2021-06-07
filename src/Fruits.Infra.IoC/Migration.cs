@@ -17,7 +17,7 @@ namespace Fruits.Infra.IoC
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetService<TContext>();
-                context.Database.Migrate();
+                //context.Database.Migrate();
 #if DEBUG
                InserirDadosParaTeste(context as Context);
 #endif
