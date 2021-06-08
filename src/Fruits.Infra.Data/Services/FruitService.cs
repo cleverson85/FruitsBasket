@@ -29,7 +29,7 @@ namespace Fruits.Infra.Data.Services
                 var result = await _fruitRepository.GetById(item.FruitId);
                 if (item.Quantity > result.AvailableQuantity)
                 {
-                    new Exception($"Quantidade informada do item {item.FruitId} não pode ser maior que a quantidade disponível.");
+                    throw new Exception($"Quantidade informada do item {item.FruitId} não pode ser maior que a quantidade disponível.");
                 }
 
                 result.AvailableQuantity -= item.Quantity;
