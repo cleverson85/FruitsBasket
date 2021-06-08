@@ -14,7 +14,6 @@ services:
 
   web:
     build:
-      context: .
-      dockerfile: fruitsbasket-frontend/Dockerfile
+      context: ./fruitsbasket-frontend
+      dockerfile: Dockerfile
     container_name: fruitsbasket-frontend
-    

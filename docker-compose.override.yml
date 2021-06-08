@@ -5,16 +5,18 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:443;http://+:80
-      CONNECTION_STRING: "Host=postgres;Port=5432;Pooling=true;Database=fruits-basket;User Id=postgres;Password=docker;"
+      ASPNETCORE_HTTPS_PORT: 44380
+    restart: on-failure
     ports:
       - "8080:80"
       - "44380:443"
     volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on: 
+      - web
     networks:
       - backend
-    depends_on: 
-      - postgres
 
   postgres:
     environment:
@@ -23,24 +25,38 @@ services:
       POSTGRES_DB: fruits-basket
     restart: always
     ports:
-        - 15433:5432
+      - 15433:5432
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - backend
 
+  flyway:
+   image: flyway/flyway:7
+   restart: on-failure
+   command: -url=jdbc:postgresql://postgres:5432/fruits-basket -schemas=public -user=postgres -password=docker -connectRetries=15 migrate
+   environment:
+     - FLYWAY_EDITION=community
+   volumes:
+     - ./sql:/flyway/sql
+   depends_on:
+     - web
+     - fruits.api
+     - postgres
+   networks:
+     - backend
+
   web:
     environment:
-      APP_NAME: "Fruits Basket"
+      NAME: "Fruits Basket"
       PRODUCTION: "true"
-      API_URL: "http://localhost:8080/api/"
+      API_URL: "https://localhost:44380/api/"
       QTD_ITEM: "9"
     ports:
-      - 5050:80
+      - 5555:80
     networks:
       - backend
     depends_on: 
-      - api
       - postgres
 
 networks:

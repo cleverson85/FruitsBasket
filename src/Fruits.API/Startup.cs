@@ -2,7 +2,6 @@
 using FluentValidation.AspNetCore;
 using Fruits.API.Middlewares;
 using Fruits.Application.Filters;
-using Fruits.Domain.Interfaces;
 using Fruits.Domain.Settings;
 using Fruits.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
@@ -35,8 +34,8 @@ namespace Fruits.API
             services
                 .ConfigureContext(appSettings.ConnectionStringDefault)
                 .ConfigureServices()
-                .ConfigureRepositories()
-                .ConfigureCors();
+                .ConfigureCors()
+                .ConfigureRepositories();
 
             services
                .AddControllers(options => options.Filters.Add(typeof(ModelValidationFilter)))
@@ -81,13 +80,16 @@ namespace Fruits.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage()
-                   .UseSwagger()
-                   .UseSwaggerUI(options =>
-                   {
-                        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                   });
+                app.UseDeveloperExceptionPage();
+
             }
+
+            app
+             .UseSwagger()
+             .UseSwaggerUI(options =>
+             {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+             });
 
             app
               .UseHttpsRedirection()

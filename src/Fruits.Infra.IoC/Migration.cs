@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Threading;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Fruits.Infra.IoC
@@ -17,9 +18,10 @@ namespace Fruits.Infra.IoC
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetService<TContext>();
-                context.Database.Migrate();
+
+                //context.Database.Migrate();
 #if DEBUG
-               InserirDadosParaTeste(context as Context);
+                InserirDadosParaTeste(context as Context);
 #endif
             }
 
@@ -28,6 +30,9 @@ namespace Fruits.Infra.IoC
         private static void InserirDadosParaTeste(Context context)
         {
             var user = context.Find<User>(1);
+
+            Console.WriteLine("Inserir Dados Para Teste");
+
             if (user == null)
             {
                 context.Add(BuildUser());

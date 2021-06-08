@@ -3,6 +3,7 @@ using Fruits.Domain.Interfaces.Repositories;
 using Fruits.Domain.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace Fruits.Infra.Data.Repositories
 {
@@ -13,7 +14,7 @@ namespace Fruits.Infra.Data.Repositories
 
         public async Task<User> FindUser(string email)
         {
-            var result = await GetByExpression(null, c => c.Email == email, null);
+            var result = await GetByExpression(null, c => c.Email.ToLower() == email.ToLower(), null);
             return result.FirstOrDefault();
         }
     }

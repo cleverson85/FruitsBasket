@@ -1,7 +1,7 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders
+  HttpHeaders,
 } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private toaster: ToasterService
+    private toaster: ToasterService,
   ) {}
 
   httpOptions = {
@@ -36,6 +36,7 @@ export class AuthService {
   };
 
   login(user: User) {
+    console.log(`${this.API}${ApiRoute.LOGIN}`);
     this.httpClient.post(`${this.API}${ApiRoute.LOGIN}`, user).subscribe(
       (result: any) => {
         this.configureSession(result);
@@ -43,7 +44,7 @@ export class AuthService {
       (e: HttpErrorResponse) => {
         const { error } = e;
         this.toaster.showToastError('Email ou senha incorretos.');
-      }
+      },
     );
   }
 

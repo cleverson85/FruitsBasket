@@ -31,9 +31,12 @@ namespace Fruits.Infra.Data.Services
                 });
             }
 
-            await _fruitService.ValidateQuatity(stores);
+            if (await _fruitService.ValidateQuatity(stores))
+            {
+                return await _storeRepository.SaveList(stores);
+            }
 
-            return await _storeRepository.SaveList(stores);
+            return false;
         }
     }
 }
