@@ -8,6 +8,7 @@ namespace Fruits.Infra.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.HasKey(c => c.Id);
             builder.Property(c => c.Email);
             builder.Property(c => c.Senha);
         }

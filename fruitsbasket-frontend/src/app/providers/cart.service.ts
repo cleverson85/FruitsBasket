@@ -4,7 +4,7 @@ import { Fruit } from '../models/fruit';
 import { Store } from '../models/store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   messageSource$ = new BehaviorSubject<any>({});
@@ -17,12 +17,20 @@ export class CartService {
   }
 
   addItemsToCart(item: Fruit, quantity: number, totalQuantity: number) {
-    const deletedValue = this.itemsInCart.findIndex((e) => e.fruit.id == item.id);
+    const deletedValue = this.itemsInCart.findIndex(
+      (e) => e.fruit.id == item.id,
+    );
     if (deletedValue >= 0) {
       this.itemsInCart.splice(deletedValue, 1);
     }
 
-    this.itemsInCart.push({ fruit: item, quantity, totalQuantity, totalValue: 0 });
+    this.itemsInCart.push({
+      fruitId: item.id,
+      fruit: item,
+      quantity,
+      totalQuantity,
+      totalValue: 0,
+    });
     this.setMessage(this.itemsInCart);
   }
 }

@@ -32,19 +32,19 @@ services:
       - backend
 
   flyway:
-   image: flyway/flyway:7
-   restart: on-failure
-   command: -url=jdbc:postgresql://postgres:5432/fruits-basket -schemas=public -user=postgres -password=docker -connectRetries=15 migrate
-   environment:
-     - FLYWAY_EDITION=community
-   volumes:
-     - ./sql:/flyway/sql
-   depends_on:
-     - web
-     - fruits.api
-     - postgres
-   networks:
-     - backend
+    image: flyway/flyway:7
+    restart: on-failure
+    command: -url=jdbc:postgresql://postgres:5432/fruits-basket -schemas=public -user=postgres -password=docker -connectRetries=15 migrate
+    environment:
+      - FLYWAY_EDITION=community
+    volumes:
+      - ./sql:/flyway/sql
+    depends_on:
+      - web
+      - fruits.api
+      - postgres
+    networks:
+      - backend
 
   web:
     environment:

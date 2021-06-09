@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Fruits.Domain.Models;
+using Fruits.Application.ViewModels;
 
 namespace Fruits.Application.Validators
 {
-    public class LivroValidator : AbstractValidator<Fruit>
+    public class FruitValidator : AbstractValidator<FruitViewModel>
     {
-        public LivroValidator()
+        public FruitValidator()
         {
             RuleFor(c => c.Name)
                 .NotNull()

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Fruits.Domain.Models
+﻿namespace Fruits.Domain.Models
 {
     public abstract class BaseEntity
     {

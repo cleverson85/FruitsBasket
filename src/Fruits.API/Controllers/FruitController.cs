@@ -1,4 +1,6 @@
-﻿using Fruits.Domain.Interfaces;
+﻿using Fruits.API.Controllers.Base;
+using Fruits.Application.ViewModels;
+using Fruits.Domain.Interfaces;
 using Fruits.Domain.Interfaces.Services;
 using Fruits.Domain.Models;
 using Fruits.Domain.Searching;
@@ -8,10 +10,10 @@ using static Fruits.Domain.Util.Endpoints;
 
 namespace Fruits.API.Controllers
 {
-    [Helpers.Authorize]
     [ApiController]
+    [Helpers.Authorize]
     [Route(Recursos.Fruit)]
-    public class FruitController : BaseController<Fruit>
+    public class FruitController : BaseController<Fruit, FruitViewModel>
     {
         private readonly IFruitService _fruitService;
         private readonly IUnitOfWork _unitOfWork;

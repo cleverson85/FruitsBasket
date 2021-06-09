@@ -1,6 +1,7 @@
 ﻿using Fruits.Domain.Interfaces.Repositories;
 using Fruits.Domain.Interfaces.Services;
 using Fruits.Domain.Models;
+using Fruits.Domain.Searching;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,26 +18,19 @@ namespace Fruits.Infra.Data.Services
             _fruitService = fruitService;
         }
 
-        public override async Task<bool> Save(IList<Store> entity)
+        public override async Task<bool> Save(IList<Store> stores)
         {
-            IList<Store> stores = new List<Store>();
-
-            foreach (var item in entity)
-            {
-                stores.Add(new Store()
-                {
-                    FruitId = item.Fruit.Id,
-                    Quantity = item.Quantity,
-                    TotalValue = item.TotalValue
-                });
-            }
-
             if (await _fruitService.ValidateQuatity(stores))
             {
                 return await _storeRepository.SaveList(stores);
             }
 
             return false;
+        }
+
+        public override Task<IList<Store>> GetAll(PaginationParameterDto paginationParameter = null)
+        {
+            return _storeRepository.GetAll();
         }
     }
 }

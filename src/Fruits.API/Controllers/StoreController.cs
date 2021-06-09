@@ -1,4 +1,6 @@
-﻿using Fruits.Domain.Interfaces;
+﻿using Fruits.API.Controllers.Base;
+using Fruits.Application.ViewModels;
+using Fruits.Domain.Interfaces;
 using Fruits.Domain.Interfaces.Services;
 using Fruits.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +11,7 @@ namespace Fruits.API.Controllers
     [Helpers.Authorize]
     [ApiController]
     [Route(Recursos.Store)]
-    public class StoreController : BaseController<Store>
+    public class StoreController : BaseController<Store, StoreViewModel>
     {
         private readonly IStoreService _storeService;
         private readonly IUnitOfWork _unitOfWork;

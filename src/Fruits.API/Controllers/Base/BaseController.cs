@@ -1,4 +1,7 @@
-﻿using Fruits.Domain.Interfaces;
+﻿using AutoMapper;
+using Fruits.Application.Mappers;
+using Fruits.Application.ViewModels;
+using Fruits.Domain.Interfaces;
 using Fruits.Domain.Interfaces.Services;
 using Fruits.Domain.Models;
 using Fruits.Domain.Searching;
@@ -7,14 +10,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using static Fruits.Domain.Util.Endpoints;
 
-namespace Fruits.API.Controllers
+namespace Fruits.API.Controllers.Base
 {
-    [Helpers.Authorize]
     [ApiController]
-    public abstract class BaseController<Entity> : ControllerBase where Entity : BaseEntity
+    [Helpers.Authorize]
+    public abstract class BaseController<Entity, ViewModel> : ControllerBase where Entity : BaseEntity where ViewModel : BaseViewModel
     {
         private readonly IBaseService<Entity> _baseService;
         private readonly IUnitOfWork _unitOfWork;
+        protected IMapper _mapper = AutoMapperConfiguration.GetMapper();
 
         public BaseController(IBaseService<Entity> baseService, IUnitOfWork unitOfWork)
         {
@@ -28,6 +32,7 @@ namespace Fruits.API.Controllers
         {
             var result = await _baseService.GetAll(paginationParameter);
             var count = await _baseService.Count();
+
             return Ok(new Result<Entity>(result, count));
         }
 
@@ -41,19 +46,23 @@ namespace Fruits.API.Controllers
 
         [HttpPost]
         [Route(Route.POST)]
-        public virtual async Task<IActionResult> Save([FromBody] Entity entity)
+        public virtual async Task<IActionResult> Save([FromBody] ViewModel viewModel)
         {
-            await _baseService.Save(entity);
+            var result = _mapper.Map<Entity>(viewModel);
+            await _baseService.Save(result);
             await _unitOfWork.Commit();
+
             return Ok(await GetAll(new PaginationParameterDto()));
         }
 
         [HttpPost]
         [Route(Route.LIST)]
-        public virtual async Task<IActionResult> Save([FromBody] IList<Entity> entity)
+        public virtual async Task<IActionResult> Save([FromBody] IList<ViewModel> viewModel)
         {
-            await _baseService.Save(entity);
+            var result = _mapper.Map<IList<Entity>>(viewModel);
+            await _baseService.Save(result);
             await _unitOfWork.Commit();
+
             return Ok(await GetAll(new PaginationParameterDto()));
         }
 
@@ -63,6 +72,7 @@ namespace Fruits.API.Controllers
         {
             await _baseService.Delete(id);
             await _unitOfWork.Commit();
+
             return Ok(await GetAll(new PaginationParameterDto()));
         }
     }

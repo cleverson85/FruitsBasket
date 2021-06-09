@@ -50,7 +50,7 @@
             </span>
           </td>
           <td>
-            <app-menu-list [route]="'fruit/' + item.id" [delete]="item" [routeApi]="routeApi" (modelEmitter)="reloadList($event)" ></app-menu-list>
+            <app-menu-list [route]="'fruit/' + item.id" (modelEmitter)="reloadList($event)" ></app-menu-list>
           </td>
         </tr>
       </tbody>

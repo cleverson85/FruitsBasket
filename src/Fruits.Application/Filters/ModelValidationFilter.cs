@@ -16,7 +16,7 @@ namespace Fruits.Application.Filters
         {
             if (!context.ModelState.IsValid)
             {
-                var errors = new ErrosViewModel(context.ModelState.GetErrorsMessages());
+                var errors = new ErrorViewModel(context.ModelState.GetErrorsMessages());
                 context.Result = new BadRequestObjectResult(errors);
             }
         }

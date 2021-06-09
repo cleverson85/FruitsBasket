@@ -3,15 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Fruit } from '../models/fruit';
-import { ApiRoute } from '../shared/enum/apiRoutes.enum';
+import { ApiRoutesFruit } from '../shared/enum/apiRoutesFruit.enum';
 import BaseService from './common/base.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FruitService extends BaseService {
+  
   getFruits(page?: number): Observable<Fruit[]> {
-    return this.get<Fruit[]>(`${ApiRoute.FRUIT}?page=${page || 1}&ItemsByPage=${this.itemsPerPage}`).pipe(
+    return this.get<Fruit[]>(`${ApiRoutesFruit.FRUIT}?page=${page || 1}&ItemsByPage=${this.itemsPerPage}`).pipe(
       shareReplay(1),
       map((result: Fruit[]) => {
         return result;
@@ -24,7 +25,7 @@ export class FruitService extends BaseService {
 
     if (name) {
       return this.get<Fruit[]>(
-        `${ApiRoute.NAME}${encodeURIComponent(name)}?page=${page}&ItemsByPage=${this.itemsPerPage}`
+        `${ApiRoutesFruit.NAME}${encodeURIComponent(name)}?page=${page}&ItemsByPage=${this.itemsPerPage}`
       ).pipe(
         map((result: Fruit[]) => {
           return result;
@@ -42,7 +43,7 @@ export class FruitService extends BaseService {
         formGroup['picture'] = btoa(new Uint8Array(e).reduce((data, byte) => data + String.fromCharCode(byte), ''));
 
         this.httpClient
-          .post(this.API + ApiRoute.SAVE, formGroup)
+          .post(this.API + ApiRoutesFruit.SAVE, formGroup)
           .subscribe(
             (result: any) => {
               this.toasterService.showToastSuccess(

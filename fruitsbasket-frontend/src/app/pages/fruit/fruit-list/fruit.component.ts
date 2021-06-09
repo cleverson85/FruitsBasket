@@ -1,9 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ToasterService } from 'src/app/providers/common/toaster.service';
 import { FruitService } from 'src/app/providers/fruit.service';
-import { ModalService } from 'src/app/providers/modal.service';
-import { ApiRoute } from 'src/app/shared/enum/apiRoutes.enum';
 import { Fruit } from '../../../models/fruit';
 
 @Component({
@@ -17,7 +14,6 @@ export class FruitComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   fruits: Fruit[];
   pages: number;
-  routeApi = ApiRoute.DELETE;
 
   constructor(
     private fruitService: FruitService,

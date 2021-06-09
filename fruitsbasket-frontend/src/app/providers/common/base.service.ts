@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Environment } from 'src/app/environment.service';
-import { ApiRoute } from 'src/app/shared/enum/apiRoutes.enum';
 import { ToasterService } from './toaster.service';
 
 @Injectable({
@@ -43,7 +42,7 @@ class BaseService {
     return this.httpClient.delete<T>(this.API + route + id);
   }
 
-  salvar(apiRoute: ApiRoute, formGroup: any, routerReturn: string) {
+  salvar(apiRoute: any, formGroup: any, routerReturn: string) {
     this.httpClient.post(this.API + apiRoute, formGroup)
       .subscribe((result: any) => {
           this.toasterService.showToastSuccess('Operação efetuada com sucesso.');

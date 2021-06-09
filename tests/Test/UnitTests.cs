@@ -8,13 +8,11 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Test.Attributes;
 using Xunit;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Test
 {
-    [TestCaseOrderer("Test.Orderers.PriorityOrderer", "Test.Orderers")]
     public class UnitTests
     {
         private readonly DependencyResolverHelpercs _serviceProvider;
@@ -35,39 +33,40 @@ namespace Test
             _userService = _serviceProvider.GetService<IUserService>();
         }
 
-        [Fact, TestPriority(0)]
-        public void ServiceInstanceTest()
+        [Fact]
+        public void A_ServiceInstanceTest()
         {
             var fruitService = _serviceProvider.GetService<IFruitService>();
             Assert.NotNull(fruitService);
         }
 
-        [Fact, TestPriority(1)]
-        public async Task ShouldInsertFruit()
+        [Fact]
+        public async Task B_ShouldInsertFruit()
         {
             var fixture = new Fixture();
             var fruit = fixture.Build<Fruit>()
                 .With(c => c.Id, 0)
                 .With(c => c.Name, "Banana")
                 .With(c => c.AvailableQuantity, 10)
-                .With(c => c.Price, decimal.Parse("1.87"))
+                .With(c => c.Price, Convert.ToDecimal(1.87))
                 .With(c => c.Description, "Banana Description")
                 .Create();
 
             _unitOfWork.GetContext().Add(fruit);
             await _unitOfWork.Commit();
 
-            Assert.Contains(fruit, await _fruitService.GetAll());
+            var result = await _fruitService.GetByExpression(null, c => c.Name == "Banana" && c.AvailableQuantity == 10);
+            Assert.NotNull(result.FirstOrDefault());
         }
 
-        [Fact, TestPriority(2)]
-        public async Task ShouldInsertAndReturnFruit()
+        [Fact]
+        public async Task C_ShouldInsertAndReturnFruit()
         {
             var fixture = new Fixture();
             var fruit = fixture.Build<Fruit>()
                 .With(c => c.Id, 0)
                 .With(c => c.Name, "Maçã")
-                .With(c => c.AvailableQuantity, 10)
+                .With(c => c.AvailableQuantity, 25)
                 .With(c => c.Price, Convert.ToDecimal(1.87))
                 .With(c => c.Description, "Maçã Description")
                 .Create();
@@ -75,12 +74,12 @@ namespace Test
             _unitOfWork.GetContext().Add(fruit);
             await _unitOfWork.Commit();
 
-            var result = await _fruitService.GetByExpression(null, c => c.Name.ToLower().Contains("Maçã".ToLower()));
-            Assert.Same(fruit, result.FirstOrDefault());
+            var result = await _fruitService.GetByExpression(null, c => c.Name == "Maçã" && c.AvailableQuantity == 25);
+            Assert.NotNull(result.FirstOrDefault());
         }
 
-        [Fact, TestPriority(3)]
-        public async Task ShouldInsertAndUpdateFruit()
+        [Fact]
+        public async Task D_ShouldInsertAndUpdateFruit()
         {
             var fixture = new Fixture();
             var fruit = fixture.Build<Fruit>()
@@ -94,35 +93,48 @@ namespace Test
             _unitOfWork.GetContext().Add(fruit);
             await _unitOfWork.Commit();
 
-            var result = await _fruitService.FindByName("Laranja", null);
+            var result = _unitOfWork.GetContext().Set<Fruit>().Where(c => c.Name == "Laranja" && c.AvailableQuantity == 20);
             var laranja = result.FirstOrDefault();
 
-            laranja.Name = "Laranja Lima 123";
+            laranja.Name = "Laranja Lima";
             laranja.Description = "Laranja Lima Description";
+            laranja.AvailableQuantity = 50;
             laranja.Price = Convert.ToDecimal(1.50);
 
-            _unitOfWork.GetContext().Set<Fruit>().Update(laranja);
+            _unitOfWork.GetContext().Update(laranja);
             await _unitOfWork.Commit();
 
-            result = await _fruitService.FindByName("Laranja Lima 123", null);
-
-            Assert.Same(laranja, result.FirstOrDefault());
+            result = _unitOfWork.GetContext().Set<Fruit>().Where(c => c.Name == "Laranja Lima" && c.AvailableQuantity == 50);
+            Assert.NotNull(result.FirstOrDefault());
         }
 
-        [Fact, TestPriority(4)]
-        public async Task ShouldDeleteFruit()
+        [Fact]
+        public async Task E_ShouldDeleteFruit()
         {
-            var result = await _fruitService.FindByName("Laranja", null);
+            var fixture = new Fixture();
+            var fruit = fixture.Build<Fruit>()
+                .With(c => c.Id, 0)
+                .With(c => c.Name, "Laranja Lima")
+                .With(c => c.AvailableQuantity, 20)
+                .With(c => c.Price, Convert.ToDecimal(1.87))
+                .With(c => c.Description, "Laranja Description")
+                .Create();
+
+            _unitOfWork.GetContext().Add(fruit);
+            await _unitOfWork.Commit();
+
+            var result = _unitOfWork.GetContext().Set<Fruit>().Where(c => c.Name == "Laranja Lima" && c.AvailableQuantity == 20);
             var laranja = result.FirstOrDefault();
 
             _unitOfWork.GetContext().Set<Fruit>().Remove(laranja);
             await _unitOfWork.Commit();
 
-            Assert.DoesNotContain(laranja, await _fruitService.GetAll());
+            var resultFinal = _unitOfWork.GetContext().Set<Fruit>().Where(c => c.Name == "Laranja Lima" && c.AvailableQuantity == 20).FirstOrDefault();
+            Assert.Null(resultFinal);
         }
 
-        [Fact, TestPriority(5)]
-        public async Task ShouldInsertUser()
+        [Fact]
+        public async Task F_ShouldInsertUser()
         {
             var fixture = new Fixture();
             var user = fixture.Build<User>()
@@ -134,7 +146,34 @@ namespace Test
             _unitOfWork.GetContext().Add(user);
             await _unitOfWork.Commit();
 
-            Assert.Contains(user, await _userService.GetAll());
+            var result = await _userService.GetByExpression(null, c => c.Email == "cleverson85@gmail.com");
+            Assert.NotNull(result.FirstOrDefault());
+        }
+
+        [Fact]
+        public async Task G_ShouldThrowExceptionValidateQuantity()
+        {
+            var fixture = new Fixture();
+            var fruit = fixture.Build<Fruit>()
+                .With(c => c.Id, 0)
+                .With(c => c.Name, "Banana Maça")
+                .With(c => c.AvailableQuantity, 10)
+                .With(c => c.Price, Convert.ToDecimal(1.87))
+                .With(c => c.Description, "Banana Description")
+                .Create();
+
+            _unitOfWork.GetContext().Add(fruit);
+            await _unitOfWork.Commit();
+
+
+            fixture = new Fixture();
+            var store = fixture.Build<Store>()
+                .With(c => c.Id, 0)
+                .With(c => c.FruitId, fruit.Id)
+                .With(c => c.Quantity, 20)
+                .CreateMany(1);
+
+            await _fruitService.ValidateQuatity(store.ToList());
         }
     }
 }

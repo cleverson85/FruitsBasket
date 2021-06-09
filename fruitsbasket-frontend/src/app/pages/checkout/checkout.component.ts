@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from 'src/app/models/store';
 import { CartService } from 'src/app/providers/cart.service';
@@ -8,7 +14,7 @@ import { StoreService } from 'src/app/providers/store.service';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss']
+  styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
   @ViewChild('elementQtdRef') elementQtdRef: ElementRef;
@@ -20,9 +26,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     return this.elementQtdRef?.nativeElement.value;
   }
 
-  constructor(private cartService: CartService,
-              private storeService: StoreService,
-              private toaster: ToasterService) { }
+  constructor(
+    private cartService: CartService,
+    private storeService: StoreService,
+    private toaster: ToasterService,
+  ) {}
 
   ngOnInit() {
     this.subscription.add(
@@ -30,7 +38,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         this.itemsInCart = result;
 
         console.log(this.itemsInCart);
-      })
+      }),
     );
   }
 
@@ -45,7 +53,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   changeAvailableQuantity(item: Store) {
     if (this.quantityRef > item.totalQuantity) {
-      this.toaster.showToastWarning(`Quantidade informada do item ${item.fruit.name} não pode ser maior que a quantidade disponível.`);
+      this.toaster.showToastWarning(
+        `Quantidade informada do item ${item.fruit.name} não pode ser maior que a quantidade disponível.`,
+      );
       return;
     }
 

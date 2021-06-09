@@ -20,8 +20,8 @@ export class CardComponent implements OnInit {
 
   constructor(
     private toaster: ToasterService,
-    private cartService: CartService
-  ) { }
+    private cartService: CartService,
+  ) {}
 
   ngOnInit() {
     this.tempValue = this.item.availableQuantity;
@@ -33,12 +33,13 @@ export class CardComponent implements OnInit {
     }
 
     if (this.quantityRef > this.tempValue) {
-      this.toaster.showToastWarning(`Quantidade informada do item ${item.name} não pode ser maior que a quantidade disponível.`);
+      this.toaster.showToastWarning(
+        `Quantidade informada do item ${item.name} não pode ser maior que a quantidade disponível.`,
+      );
       return;
     }
 
     item.availableQuantity = this.tempValue - this.quantityRef;
-
     this.cartService.addItemsToCart(item, this.quantityRef, this.tempValue);
   }
 

@@ -2,8 +2,10 @@
 using FluentValidation.AspNetCore;
 using Fruits.API.Middlewares;
 using Fruits.Application.Filters;
+using Fruits.Application.Validators;
 using Fruits.Domain.Settings;
 using Fruits.Infra.IoC;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,16 +37,17 @@ namespace Fruits.API
                 .ConfigureContext(appSettings.ConnectionStringDefault)
                 .ConfigureServices()
                 .ConfigureCors()
-                .ConfigureRepositories();
+                .ConfigureRepositories()
+                .AddAutoMapper(typeof(Startup));
 
             services
                .AddControllers(options => options.Filters.Add(typeof(ModelValidationFilter)))
+               .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<FruitValidator>())
                .AddNewtonsoftJson(options =>
                {
                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                    options.UseCamelCasing(false);
-               })
-               .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
+               });
 
             services.AddSwaggerGen(options =>
             {
@@ -58,19 +61,19 @@ namespace Fruits.API
                     Scheme = "Bearer"
                 });
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
                     {
-                        new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference
+                            new OpenApiSecurityScheme
                             {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
-                });
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            Array.Empty<string>()
+                        }
+                    });
                 options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
         }
@@ -85,11 +88,11 @@ namespace Fruits.API
             }
 
             app
-             .UseSwagger()
-             .UseSwaggerUI(options =>
-             {
+              .UseSwagger()
+              .UseSwaggerUI(options =>
+              {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-             });
+              });
 
             app
               .UseHttpsRedirection()

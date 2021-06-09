@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from 'src/app/models/usuario';
 import { Environment } from '../environment.service';
-import { ApiRoute } from '../shared/enum/apiRoutes.enum';
+import { ApiRoutesAuth } from '../shared/enum/apiRoutesAuth.enum';
+import { ApiRoutesFruit } from '../shared/enum/apiRoutesFruit.enum';
+
 import { Token } from '../shared/enum/token.enum';
 import { ToasterService } from './common/toaster.service';
 
@@ -19,6 +21,7 @@ export class AuthService {
   mostrarMenuEmitter = new EventEmitter<boolean>();
 
   private readonly API = Environment.settings.api.url;
+  private readonly LOGIN = ApiRoutesAuth.LOGIN;
 
   tokenHelper = new JwtHelperService();
   tempUser = false;
@@ -36,8 +39,8 @@ export class AuthService {
   };
 
   login(user: User) {
-    console.log(`${this.API}${ApiRoute.LOGIN}`);
-    this.httpClient.post(`${this.API}${ApiRoute.LOGIN}`, user).subscribe(
+    console.log(`${this.API}${this.LOGIN}`);
+    this.httpClient.post(`${this.API}${this.LOGIN}`, user).subscribe(
       (result: any) => {
         this.configureSession(result);
       },
