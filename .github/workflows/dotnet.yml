@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore FruitsBasket.sln
     - name: Build
-      run: dotnet build FruitsBasket.sln --no-restore
+      run: dotnet build FruitsBasket.sln
     - name: Test
-      run: dotnet test FruitsBasket.sln --no-build --verbosity normal
+      run: dotnet test FruitsBasket.sln
