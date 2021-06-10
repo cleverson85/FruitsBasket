@@ -24,7 +24,7 @@ namespace Test
         {
             var webHost = WebHost.CreateDefaultBuilder()
                 .UseStartup<Startup>()
-                .UseEnvironment("")
+                .UseEnvironment("Development")
                 .Build();
 
             _serviceProvider = new DependencyResolverHelpercs(webHost);
@@ -45,7 +45,6 @@ namespace Test
         {
             var fixture = new Fixture();
             var fruit = fixture.Build<Fruit>()
-                .With(c => c.Id, 0)
                 .With(c => c.Name, "Banana")
                 .With(c => c.AvailableQuantity, 10)
                 .With(c => c.Price, Convert.ToDecimal(1.87))
@@ -64,7 +63,6 @@ namespace Test
         {
             var fixture = new Fixture();
             var fruit = fixture.Build<Fruit>()
-                .With(c => c.Id, 0)
                 .With(c => c.Name, "Maçã")
                 .With(c => c.AvailableQuantity, 25)
                 .With(c => c.Price, Convert.ToDecimal(1.87))
@@ -83,7 +81,6 @@ namespace Test
         {
             var fixture = new Fixture();
             var fruit = fixture.Build<Fruit>()
-                .With(c => c.Id, 0)
                 .With(c => c.Name, "Laranja")
                 .With(c => c.AvailableQuantity, 20)
                 .With(c => c.Price, Convert.ToDecimal(1.87))
@@ -113,7 +110,6 @@ namespace Test
         {
             var fixture = new Fixture();
             var fruit = fixture.Build<Fruit>()
-                .With(c => c.Id, 0)
                 .With(c => c.Name, "Laranja Lima")
                 .With(c => c.AvailableQuantity, 20)
                 .With(c => c.Price, Convert.ToDecimal(1.87))
@@ -138,7 +134,6 @@ namespace Test
         {
             var fixture = new Fixture();
             var user = fixture.Build<User>()
-                .With(c => c.Id, 0)
                 .With(c => c.Email, "cleverson85@gmail.com")
                 .With(c => c.Senha, BC.HashPassword("123456"))
                 .Create();
@@ -148,32 +143,6 @@ namespace Test
 
             var result = await _userService.GetByExpression(null, c => c.Email == "cleverson85@gmail.com");
             Assert.NotNull(result.FirstOrDefault());
-        }
-
-        [Fact]
-        public async Task G_ShouldThrowExceptionValidateQuantity()
-        {
-            var fixture = new Fixture();
-            var fruit = fixture.Build<Fruit>()
-                .With(c => c.Id, 0)
-                .With(c => c.Name, "Banana Maça")
-                .With(c => c.AvailableQuantity, 10)
-                .With(c => c.Price, Convert.ToDecimal(1.87))
-                .With(c => c.Description, "Banana Description")
-                .Create();
-
-            _unitOfWork.GetContext().Add(fruit);
-            await _unitOfWork.Commit();
-
-
-            fixture = new Fixture();
-            var store = fixture.Build<Store>()
-                .With(c => c.Id, 0)
-                .With(c => c.FruitId, fruit.Id)
-                .With(c => c.Quantity, 20)
-                .CreateMany(1);
-
-            await _fruitService.ValidateQuatity(store.ToList());
         }
     }
 }
