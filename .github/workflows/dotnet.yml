@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+    
+env:
+  CAMINHO_PROJETO_WEBAPP: ./fruits-basket
 
 jobs:
   build:
@@ -16,13 +19,19 @@ jobs:
         
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
-        run: dotnet restore FruitsBasket.sln
-      - name: Build
-        run: dotnet build FruitsBasket.sln --configuration Release --no-restore
+      
+      - name: Build da imagem
+        run: |
+          cd ${{ env.CAMINHO_PROJETO_WEBAPP }}
+          docker-compose up -d
+      
+     # - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+     #    uses: actions/setup-dotnet@v1.7.2
+     #    with:
+     #     dotnet-version: ${{ matrix.dotnet-version }}
+     # - name: Install dependencies
+     #   run: dotnet restore FruitsBasket.sln
+     # - name: Build
+     #   run: dotnet build FruitsBasket.sln --configuration Release --no-restore
       - name: Test
         run: dotnet test FruitsBasket.sln --no-restore --verbosity normal
