@@ -8,6 +8,7 @@ on:
     
 env:
   CAMINHO_PROJETO_WEBAPP: ./
+  CAMINHO_PROJETO_TEST: ./tests/Test
   
 jobs:
   build:
@@ -34,4 +35,6 @@ jobs:
      # - name: Build
      #   run: dotnet build FruitsBasket.sln --configuration Release --no-restore
       - name: Test
-        run: dotnet test FruitsBasket.sln --no-restore --verbosity normal
+        run: |
+          cd ${{ env.CAMINHO_PROJETO_TEST }}
+          dotnet test --verbosity normal

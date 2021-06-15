@@ -9,11 +9,11 @@ services:
       dockerfile: src/Fruits.API/Dockerfile
 
   postgres:
-    image: postgres:11-alpine
-    container_name: fruitsbasket-db
+   image: postgres:11-alpine
+   container_name: fruitsbasket-db
 
-  web:
-    build:
-      context: ./fruitsbasket-frontend
-      dockerfile: Dockerfile
-    container_name: fruitsbasket-frontend
+  # web:
+  #  build:
+  #    context: ./fruitsbasket-frontend
+  #    dockerfile: Dockerfile
+  #  container_name: fruitsbasket-frontend

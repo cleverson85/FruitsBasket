@@ -46,18 +46,18 @@ services:
     networks:
       - backend
 
-  web:
-    environment:
-      NAME: "Fruits Basket"
-      PRODUCTION: "true"
-      API_URL: "https://localhost:44380/api/"
-      QTD_ITEM: "9"
-    ports:
-      - 5555:80
-    networks:
-      - backend
-    depends_on: 
-      - postgres
+  # web:
+  #   environment:
+  #     NAME: "Fruits Basket"
+  #     PRODUCTION: "true"
+  #     API_URL: "https://localhost:44380/api/"
+  #     QTD_ITEM: "9"
+  #   ports:
+  #     - 5555:80
+  #   networks:
+  #     - backend
+  #   depends_on: 
+  #     - postgres
 
 networks:
   backend:

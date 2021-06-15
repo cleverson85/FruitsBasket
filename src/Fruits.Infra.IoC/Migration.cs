@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Threading;
 using BC = BCrypt.Net.BCrypt;
 
 namespace Fruits.Infra.IoC
