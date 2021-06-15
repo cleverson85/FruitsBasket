@@ -1,8 +1,0 @@
-{
-  "name": "local",
-  "production": false,
-  "api": {
-    "url": "https://localhost:5001/api/"
-  },
-  "itensPerPage": 10
-}

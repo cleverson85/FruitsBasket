@@ -40,7 +40,7 @@ services:
     volumes:
       - ./sql:/flyway/sql
     depends_on:
-      - web
+      #- web
       - fruits.api
       - postgres
     networks:
